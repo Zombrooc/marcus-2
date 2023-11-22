@@ -4,10 +4,14 @@
 include 'lib/db.php';
 
 try {
-  $sql = "SELECT id, bookName, yearRelease, author, category, bookDescription FROM books";
+  // $sql = "SELECT id, bookName, yearRelease, author, category, bookDescription FROM books";
+  // $stmt = $conn->query($sql);
+
+  $sql = "SELECT books.*, publisher.publisherName as publisherName FROM books LEFT JOIN publisher ON books.publisherId = publisher.id";
   $stmt = $conn->query($sql);
 
   $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $publisher = $conn->query("SELECT * FROM publisher")->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
   echo "Erro: " . $e->getMessage();
 }
@@ -43,6 +47,7 @@ try {
             <th>Ano de Lançamento</th>
             <th>Categoria</th>
             <th>Descrição</th>
+            <th>Editora</th>
             <th>Ações</th>
           </tr>
 
@@ -65,6 +70,9 @@ try {
               </td>
               <td>
                 <?php echo $row['bookDescription']; ?>
+              </td>
+              <td>
+                <?php echo $row['publisherName']; ?>
               </td>
               <td>
                 <a href="editar.php?id=<?= $row['id'] ?>">Editar</a>

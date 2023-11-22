@@ -9,6 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
   $stmt = $conn->prepare("SELECT * FROM books WHERE id = ?");
   $stmt->execute([$id]);
   $book = $stmt->fetch(PDO::FETCH_ASSOC);
+
+  $publishers = $conn->query("SELECT * FROM publisher")->fetchAll(PDO::FETCH_ASSOC);
+
 }
 ?>
 
@@ -69,6 +72,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
           <div style="display: flex; flex-direction: column">
             <label style="width: 100%"> Descrição </label>
             <textarea name="bookDescription" value="<?= $book['bookDescription'] ?>"></textarea>
+          </div>
+          <div>
+            <label> Editora</label>
+            <select name="publisher_id">
+              <option value="">Sem Editora</option>
+              <?php foreach ($publishers as $publisher): ?>
+                <option value="<?= $publisher['id'] ?>" <?= ($book['publisherId'] == $publisher['id']) ? 'selected' : '' ?>>
+                  <?= $publisher['publisherName'] ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
           </div>
         </div>
         <button type="submit" name="update">Salvar</button>

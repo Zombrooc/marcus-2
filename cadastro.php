@@ -9,13 +9,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $yearRelease = $_POST["yearRelease"];
   $category = $_POST["category"];
   $bookDescription = $_POST["bookDescription"];
+  $publisherId = $_POST['publisher_id'];
 
-  $stmt = $conn->prepare("INSERT INTO books (bookName, author, yearRelease, category, bookDescription) VALUES (?, ?, ?, ?, ?)");
-  $stmt->execute([$bookName, $author, $yearRelease, $category, $bookDescription]);
+
+  $stmt = $conn->prepare("INSERT INTO books (bookName, author, yearRelease, category, bookDescription, publisherId) VALUES (?, ?, ?, ?, ?, ?)");
+  $stmt->execute([$bookName, $author, $yearRelease, $category, $bookDescription, $publisherId]);
   header('Location: listar.php ');
 
 
 }
+
+$publishers = $conn->query("SELECT * FROM publisher")->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html
@@ -70,8 +75,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="inputGroup">
           <div style="display: flex; flex-direction: column">
-            <label style="width: 100%"> Autor </label>
+            <label style="width: 100%"> Descrição do livro </label>
             <textarea name="bookDescription" required></textarea>
+          </div>
+          <div>
+            <label> Editora </label>
+            <select name="publisher_id">
+              <?php foreach ($publishers as $publisher): ?>
+                <option value="<?= $publisher['id'] ?>">
+                  <?= $publisher['publisherName'] ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
           </div>
         </div>
         <button type="submit">Criar novo livro</button>
