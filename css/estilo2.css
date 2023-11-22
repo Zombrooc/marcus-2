@@ -1,0 +1,137 @@
+/* ./estilo2.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: Verdana;
+  background-color: #cecece;
+  width: 100vw;
+  height: 100vh;
+}
+
+#corpo {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+#capa {
+  margin-left: 5%;
+  margin-right: 5%;
+  background-image: url("../imagens/capa3.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1300px;
+  color: blue;
+  border-left: solid 5px black;
+  border-top: solid 5px black;
+  border-right: solid 5px black;
+  border-bottom: solid 5px black;
+}
+#indice {
+  margin-left: 5%;
+  margin-right: 5%;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  background-color: #cecece;
+  border-left: solid 5px black;
+  border-right: solid 5px black;
+  border-bottom: solid 5px black;
+}
+#conteudo {
+  margin-left: 5%;
+  margin-right: 5%;
+  background-color: #ffffff;
+  border-left: solid 5px black;
+  border-right: solid 5px black;
+  border-bottom: solid 5px black;
+  text-align: center;
+  font-size: 0.9em;
+  padding: 2px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#rodape {
+  margin-left: 5%;
+  margin-right: 5%;
+  padding: 10px;
+  background-image: url("../imagens/capa3.jpg");
+  color: blue;
+  font-weight: bolder;
+  border-left: solid 5px black;
+  border-right: solid 5px black;
+  border-bottom: solid 5px black;
+}
+
+a.indice:link,
+a.menu:visited {
+  background-color: #cecece;
+  color: blue;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  width: 100px;
+  font-weight: bold;
+  padding: 0px 0px;
+}
+
+a.indice:hover,
+a.indice:active {
+  background-color: white;
+}
+
+.inputGroup {
+  max-width: 720px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  text-align: left;
+}
+
+.inputGroup div {
+  padding: 15px;
+  width: 100%;
+}
+
+.inputGroup label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.inputGroup input,
+.inputGroup select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #c0c0c0;
+  transition: all 0.5s;
+}
+
+.inputGroup input:focus,
+.inputGroup select:focus {
+  border: 1px solid blue;
+}
+
+button {
+  padding: 10px 15px;
+  border-radius: 5px;
+  background: blue;
+  text-align: center;
+  color: white;
+  text-transform: uppercase;
+  text-weight: bold;
+  outline: 0;
+  border: 0px;
+}
