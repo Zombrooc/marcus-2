@@ -1,13 +1,13 @@
 <!-- pesquisar.php -->
 
 <?php
-include 'lib/db.php';
+include '../lib/db.php';
 
 $rows = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search'])) {
   $search = '%' . $_GET['search'] . '%';
-  $stmt = $conn->prepare("SELECT * FROM books WHERE bookName LIKE ? OR id = ?");
+  $stmt = $conn->prepare("SELECT * FROM publisher WHERE publisherName LIKE ? OR id = ?");
   $stmt->execute([$search, $_GET['search']]);
   $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search'])) {
 <head>
   <title>LIVRARIA CULTURAL</title>
   <meta charset="utf-8" />
-  <link href="css/estilo2.css" rel="stylesheet" type="text/css" />
+  <link href="../css/estilo2.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search'])) {
     </div>
 
     <div id="conteudo">
-      <h2>Pesquisa de Usuários</h2>
+      <h2>Pesquisa de Editoras</h2>
 
       <form id="searchForm">
         <label for="search">Pesquisar por ID ou Nome:</label>
@@ -42,15 +42,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search'])) {
         <button type="submit">Pesquisar</button>
 
       </form>
-
+      <br />
       <table border="2" bordercolor="black" width="40%" align="center">
         <tr>
           <th>ID</th>
           <th>Nome</th>
-          <th>Autor</th>
-          <th>Ano de Lançamento</th>
-          <th>Categoria</th>
-          <th>Descrição</th>
           <th>Ações</th>
         </tr>
 
@@ -60,28 +56,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search'])) {
               <?php echo $row['id']; ?>
             </td>
             <td>
-              <?php echo $row['bookName']; ?>
+              <?php echo $row['publisherName']; ?>
             </td>
             <td>
-              <?php echo $row['author']; ?>
-            </td>
-            <td>
-              <?php echo $row['yearRelease']; ?>
-            </td>
-            <td>
-              <?php echo $row['category']; ?>
-            </td>
-            <td>
-              <?php echo $row['bookDescription']; ?>
-            </td>
-            <td>
-              <a href="editar.php?id=<?= $row['id'] ?>">Editar</a>
-              <a href="deletar.php?id=<?= $row['id'] ?>">Excluir</a>
+              <a href="./editar.php?id=<?= $row['id'] ?>">Editar</a>
+              <a href="./deletar.php?id=<?= $row['id'] ?>">Excluir</a>
             </td>
           </tr>
         <?php endforeach; ?>
       </table>
-      <a href="index.html">Voltar</a>
+      <a href="./index.html">Voltar</a>
       <br /><br />
     </div>
 

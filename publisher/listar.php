@@ -1,17 +1,14 @@
 <!-- listar.php -->
 
 <?php
-include 'lib/db.php';
+include '../lib/db.php';
 
 try {
-  // $sql = "SELECT id, bookName, yearRelease, author, category, bookDescription FROM books";
-  // $stmt = $conn->query($sql);
+  $sql = "SELECT id, publisherName FROM publisher";
 
-  $sql = "SELECT books.*, publisher.publisherName as publisherName FROM books LEFT JOIN publisher ON books.publisherId = publisher.id";
   $stmt = $conn->query($sql);
 
   $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  $publisher = $conn->query("SELECT * FROM publisher")->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
   echo "Erro: " . $e->getMessage();
 }
@@ -24,7 +21,7 @@ try {
 <head>
   <title>LIVRARIA CULTURAL</title>
   <meta charset="utf-8" />
-  <link href="css/estilo2.css" rel="stylesheet" type="text/css" />
+  <link href="../css/estilo2.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -37,17 +34,12 @@ try {
     </div>
 
     <div id="conteudo">
-      <h2>Lista de Livros</h2>
+      <h2>Lista de editoras</h2>
       <?php if ($stmt->rowCount() > 0): ?>
         <table border="2" bordercolor="black" width="40%" align="center">
           <tr>
             <th>ID</th>
             <th>Nome</th>
-            <th>Autor</th>
-            <th>Ano de Lançamento</th>
-            <th>Categoria</th>
-            <th>Descrição</th>
-            <th>Editora</th>
             <th>Ações</th>
           </tr>
 
@@ -57,26 +49,11 @@ try {
                 <?php echo $row['id']; ?>
               </td>
               <td>
-                <?php echo $row['bookName']; ?>
-              </td>
-              <td>
-                <?php echo $row['author']; ?>
-              </td>
-              <td>
-                <?php echo $row['yearRelease']; ?>
-              </td>
-              <td>
-                <?php echo $row['category']; ?>
-              </td>
-              <td>
-                <?php echo $row['bookDescription']; ?>
-              </td>
-              <td>
                 <?php echo $row['publisherName']; ?>
               </td>
               <td>
-                <a href="editar.php?id=<?= $row['id'] ?>">Editar</a>
-                <a href="deletar.php?id=<?= $row['id'] ?>">Excluir</a>
+                <a href="./editar.php?id=<?= $row['id'] ?>">Editar</a>
+                <a href="./deletar.php?id=<?= $row['id'] ?>">Excluir</a>
               </td>
             </tr>
           <?php endforeach; ?>
@@ -86,7 +63,7 @@ try {
       <?php endif; ?>
 
       <br /><br />
-      <a href="index.html">Voltar</a>
+      <a href="./index.html">Voltar</a>
 
     </div>
 
